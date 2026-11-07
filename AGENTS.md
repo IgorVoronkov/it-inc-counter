@@ -31,4 +31,5 @@ pnpm fmt:check  # oxfmt --check
 - `erasableSyntaxOnly`: no `enum`, `namespace`, or constructor parameter properties.
 - `noUnusedLocals` / `noUnusedParameters`: unused symbols fail `pnpm build`.
 - `allowImportingTsExtensions`: relative imports include the extension, e.g. `import App from "./App.tsx"`.
-- `moduleResolution: "bundler"`, `noEmit: true`; no path aliases configured.
+- `moduleResolution: "bundler"`, `noEmit: true`.
+- Import alias `@/*` → `src/*`, e.g. `import App from "@/App.tsx"`. Defined once in `tsconfig.app.json` `paths`; Vite resolves it natively via `resolve.tsconfigPaths: true` in `vite.config.ts` — do not add `resolve.alias` or `vite-tsconfig-paths`.
