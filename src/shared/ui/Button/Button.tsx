@@ -13,7 +13,7 @@ type ButtonProps = {
   className?: string;
 };
 
-function Button({ children, variant, disabled = false, onClick, className }: ButtonProps) {
+export function Button({ children, variant, disabled = false, onClick, className }: ButtonProps) {
   const classes = clsx(styles.button, styles[variant], className);
 
   return (
@@ -22,6 +22,3 @@ function Button({ children, variant, disabled = false, onClick, className }: But
     </button>
   );
 }
-
-export { Button };
-export type { ButtonProps, ButtonVariant };
