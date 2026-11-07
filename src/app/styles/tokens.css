@@ -1,0 +1,39 @@
+:root {
+  /* Palette: raw values. Components must not use them directly. */
+  --white: #ffffff;
+
+  --cyan-400: #5ad6f0;
+  --cyan-500: #3ec9e8;
+  --cyan-600: #22b6d6;
+
+  --red-100: #ffd6e2;
+  --red-400: #ff6b6b;
+  --red-500: #ff3b3b;
+
+  --slate-600: #4a5a5e;
+  --slate-800: #2b3135;
+  --slate-900: #262b2f;
+  --slate-950: #1b2226;
+
+  /* Semantic tokens: the only ones component CSS may reference. */
+  --color-bg: var(--slate-900);
+  --color-surface: var(--slate-800);
+  --color-text: var(--cyan-500);
+
+  --color-accent: var(--cyan-500);
+  --color-accent-hover: var(--cyan-400);
+  --color-accent-active: var(--cyan-600);
+  --color-on-accent: var(--slate-950);
+
+  --color-danger: var(--red-500);
+  --color-danger-text: var(--red-400);
+  --color-danger-bg: var(--red-100);
+
+  --color-muted-bg: var(--slate-600);
+  --color-input-bg: var(--white);
+  --color-input-text: var(--slate-950);
+
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
