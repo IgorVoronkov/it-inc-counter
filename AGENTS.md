@@ -1,6 +1,42 @@
 # AGENTS.md
 
-Minimal Vite + React 19 + TypeScript SPA. Single entrypoint: `index.html` → `src/main.tsx` → `src/App.tsx`. `dist/` is generated and gitignored.
+Minimal Vite + React 19 + TypeScript SPA. Single entrypoint: `index.html` → `src/app/main.tsx` → `src/app/App.tsx`. `dist/` is generated and gitignored.
+
+## Architecture (Feature-Sliced Design, simplified)
+
+`src` is split into layers; every file belongs to exactly one layer.
+
+```text
+src/
+├── app/        # bootstrap, providers, global styles, app-wide composition
+├── pages/      # route-level screens
+├── features/   # user actions (control + its handler)
+├── entities/   # business entities (types, model, presentational UI)
+└── shared/     # framework-agnostic UI kit, lib, config
+```
+
+- Imports flow strictly downward: `app` → `pages` → `features` → `entities` → `shared`.
+  Never import upward, never import a sibling slice on the same layer.
+- A slice (`pages/counter`, `features/counter-controls`, `entities/counter`) exposes its
+  public API through `index.ts`. Import slices via the alias (`@/entities/counter`), not by
+  deep paths into `ui/` or `model/`.
+- `shared` has no layer-wide barrel: import concrete modules (`@/shared/ui/Button`).
+- Allowed segments inside a slice: `ui/`, `model/`, `lib/`, `api/`, `config/`. Create a
+  segment only when it holds code.
+- `widgets` and `processes` are intentionally absent. Add `widgets` only when a page has to
+  compose several features; `processes` is not used.
+- Empty layers are placeholders kept via `.gitkeep` during scaffolding. Delete the
+  placeholder as soon as the layer gets its first slice; do not create empty slices,
+  segments, or speculative directories (`i18n/`, `mocks/`, `shared/api/`) ahead of need.
+- Global styles live in `app/styles`; component styles are CSS Modules colocated with the
+  component (`Button.module.css`).
+- State lives as close to its usage as possible; it moves into `entities/*/model` only when
+  more than one consumer needs it.
+- Named exports everywhere; the public API of a slice is `index.ts`.
+- Within a slice use relative imports with extensions (`./types.ts`); across slices use the
+  `@/*` alias. This follows `allowImportingTsExtensions` and `verbatimModuleSyntax`.
+
+Layer boundaries are a convention, not lint-enforced: Oxlint has no boundaries rule here.
 
 ## Commands
 
