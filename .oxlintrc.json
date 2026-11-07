@@ -20,5 +20,107 @@
   "options": {
     "reportUnusedDisableDirectives": "warn",
     "denyWarnings": true
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/shared/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/app/**", "@/pages/**", "@/features/**", "@/entities/**"],
+                "message": "shared must not import from upper layers"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/entities/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/features/**", "@/pages/**", "@/app/**"],
+                "message": "entities may import only shared"
+              },
+              {
+                "group": ["@/entities/**"],
+                "message": "use relative imports inside a slice; sibling entities are not allowed"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/features/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/pages/**", "@/app/**"],
+                "message": "features may import only entities and shared"
+              },
+              {
+                "group": ["@/features/**"],
+                "message": "sibling features are not allowed"
+              },
+              {
+                "group": ["@/entities/*/**"],
+                "message": "import an entity through its public API (index.ts)"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/pages/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/app/**"],
+                "message": "pages must not import app"
+              },
+              {
+                "group": ["@/pages/**"],
+                "message": "sibling pages are not allowed"
+              },
+              {
+                "group": ["@/features/*/**", "@/entities/*/**"],
+                "message": "import a slice through its public API (index.ts)"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/app/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/pages/*/**", "@/features/*/**", "@/entities/*/**"],
+                "message": "import a slice through its public API (index.ts)"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }

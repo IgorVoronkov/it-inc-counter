@@ -36,7 +36,11 @@ src/
 - Within a slice use relative imports with extensions (`./types.ts`); across slices use the
   `@/*` alias. This follows `allowImportingTsExtensions` and `verbatimModuleSyntax`.
 
-Layer boundaries are a convention, not lint-enforced: Oxlint has no boundaries rule here.
+Import direction is lint-enforced: `.oxlintrc.json` maps each layer to a `no-restricted-imports`
+override that blocks upward imports, same-layer sibling slices, and deep imports into a slice's
+internals. The rule inspects the import specifier, not the resolved path, so cross-slice imports
+must use the `@/*` alias to be checked; relative imports that climb out of a layer are not
+detected.
 
 ## Commands
 
