@@ -19,6 +19,13 @@ pnpm fmt:check  # oxfmt --check
 - Verification order: `pnpm fmt:check` → `pnpm lint` → `pnpm build`.
 - `pnpm build` is the only type-checking step; there is no standalone `typecheck` script. Use `pnpm exec tsc -b` for a faster typecheck without bundling.
 
+## Git hooks
+
+- Husky is installed through the `prepare` script. `.husky/pre-commit` runs `pnpm exec lint-staged` followed by `pnpm exec tsc -b`.
+- lint-staged config lives in `package.json`: staged JS/TS files go through `oxlint --fix` + `oxfmt`, staged CSS/JSON/Markdown/HTML through `oxfmt`.
+- `.oxlintrc.json` sets `options.denyWarnings: true`, so any lint warning fails the commit. Fix it instead of bypassing; use `git commit --no-verify` only when there is a deliberate reason.
+- Hooks are not installed when dependencies are installed with `--ignore-scripts` (some CI setups).
+
 ## Toolchain quirks
 
 - Lint/format use **Oxc** (`oxlint`, `oxfmt`), not ESLint/Prettier. Configs: `.oxlintrc.json`, `.oxfmtrc.json`. Don't introduce ESLint/Prettier configs or disable comments for them.
