@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import type { MouseEventHandler, ReactNode } from "react";
 
 import styles from "./Button.module.css";
@@ -13,7 +14,7 @@ type ButtonProps = {
 };
 
 function Button({ children, variant, disabled = false, onClick, className }: ButtonProps) {
-  const classes = [styles.button, styles[variant], className].filter(Boolean).join(" ");
+  const classes = clsx(styles.button, styles[variant], className);
 
   return (
     <button type="button" className={classes} disabled={disabled} onClick={onClick}>
