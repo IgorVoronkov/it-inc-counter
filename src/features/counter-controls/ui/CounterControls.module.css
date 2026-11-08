@@ -1,0 +1,10 @@
+.actions {
+  flex-direction: row;
+  gap: 16px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+}
+
+.actions > button {
+  flex: 1;
+}
