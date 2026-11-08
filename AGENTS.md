@@ -20,18 +20,22 @@ src/
 - A slice (`pages/counter`, `features/counter-controls`, `entities/counter`) exposes its
   public API through `index.ts`. Import slices via the alias (`@/entities/counter`), not by
   deep paths into `ui/` or `model/`.
-- `shared` has no layer-wide barrel: import concrete modules (`@/shared/ui/Button`).
+- There is no root `src/shared/index.ts`. Shared components are consumed from the
+  `@/shared/ui` barrel (`import { Button, Panel } from "@/shared/ui"`).
 - Allowed segments inside a slice: `ui/`, `model/`, `lib/`, `api/`, `config/`. Create a
   segment only when it holds code.
 - `widgets` and `processes` are intentionally absent. Add `widgets` only when a page has to
   compose several features; `processes` is not used.
-- Empty layers are placeholders kept via `.gitkeep` during scaffolding. Delete the
-  placeholder as soon as the layer gets its first slice; do not create empty slices,
-  segments, or speculative directories (`i18n/`, `mocks/`, `shared/api/`) ahead of need.
-- Global styles live in `app/styles`; component styles are CSS Modules colocated with the
-  component (`Button.module.css`).
-- State lives as close to its usage as possible; it moves into `entities/*/model` only when
-  more than one consumer needs it.
+- Do not create empty slices, segments, or speculative directories (`i18n/`, `mocks/`,
+  `shared/api/`) ahead of need.
+- Global styles live in `app/styles`: `reset.css` (mechanics only), `tokens.css` (palette +
+  semantic tokens), `index.css` (brand typography/colours). Component styles are CSS Modules
+  colocated with the component (`Button.module.css`).
+- `tokens.css` is two-level: raw palette values (`--cyan-500`, `--slate-900`, …) and semantic
+  `--color-*` tokens. Component CSS must reference only `--color-*`, `--radius-*`.
+- Counter state lives in `entities/counter/model`: `useCounter` owns the state machine, and
+  `storage.ts` persists settings to `localStorage` under `counter:settings`. The page only
+  wires the entity hook to feature components through props.
 - Named exports everywhere; the public API of a slice is `index.ts`.
 - Within a slice use relative imports with extensions (`./types.ts`); across slices use the
   `@/*` alias. This follows `allowImportingTsExtensions` and `verbatimModuleSyntax`.
@@ -50,8 +54,10 @@ Package manager is pnpm (pinned in `package.json` `packageManager`). Do not add 
 pnpm install
 pnpm dev
 pnpm build      # tsc -b && vite build — this is the only typecheck
+pnpm preview    # serve dist/
 pnpm lint       # oxlint
-pnpm fmt        # oxfmt (writes)
+pnpm lint:fix   # oxlint --fix
+pnpm fmt        # oxfmt (writes; also sorts imports)
 pnpm fmt:check  # oxfmt --check
 ```
 
@@ -71,6 +77,7 @@ pnpm fmt:check  # oxfmt --check
 - Lint/format use **Oxc** (`oxlint`, `oxfmt`), not ESLint/Prettier. Configs: `.oxlintrc.json`, `.oxfmtrc.json`. Don't introduce ESLint/Prettier configs or disable comments for them.
 - React Compiler is enabled through `@vitejs/plugin-react` (`react({ compiler: true })` in `vite.config.ts`), backed by the exact-pinned native `oxc-transform-react@0.156.0`. Write plain components and let the compiler memoize; don't add `useMemo`/`useCallback` for perf.
 - `tsconfig.json` is a solution file with two projects: `tsconfig.app.json` covers `src`, `tsconfig.node.json` covers only `vite.config.ts`. New root-level TS files must be added to the latter's `include`.
+- `docs/` is gitignored (design screenshot and implementation plan). Treat it as local scratch: don't commit it, and don't expect it in a fresh clone.
 
 ## TypeScript conventions (enforced)
 
