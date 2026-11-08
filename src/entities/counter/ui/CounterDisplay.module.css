@@ -1,0 +1,32 @@
+.display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  text-align: center;
+}
+
+.value {
+  font-size: clamp(64px, 12vw, 140px);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+.atMax {
+  color: var(--color-danger);
+}
+
+.prompt,
+.invalid {
+  font-size: clamp(20px, 2.5vw, 32px);
+  line-height: 1.2;
+}
+
+.prompt {
+  color: var(--color-accent);
+}
+
+.invalid {
+  color: var(--color-danger-text);
+}
