@@ -2,10 +2,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 24px;
+  padding: 4px clamp(10px, 2vw, 32px);
   border-radius: var(--radius-md);
   color: var(--color-on-accent);
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4.5vw, 3rem);
   line-height: 1.2;
   cursor: pointer;
   transition:

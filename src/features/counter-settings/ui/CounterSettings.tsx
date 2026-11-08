@@ -24,7 +24,7 @@ export function CounterSettings({
   onApply,
 }: CounterSettingsProps) {
   return (
-    <div className={styles.settings}>
+    <>
       <Panel className={styles.group}>
         <TextField
           id="counter-max"
@@ -46,6 +46,6 @@ export function CounterSettings({
           set
         </Button>
       </Panel>
-    </div>
+    </>
   );
 }

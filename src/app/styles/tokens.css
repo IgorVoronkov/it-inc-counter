@@ -10,7 +10,6 @@
   --red-400: #ff6b6b;
   --red-500: #ff3b3b;
 
-  --slate-600: #4a5a5e;
   --slate-800: #2b3135;
   --slate-900: #262b2f;
   --slate-950: #1b2226;
@@ -29,11 +28,11 @@
   --color-danger-text: var(--red-400);
   --color-danger-bg: var(--red-100);
 
-  --color-muted-bg: var(--slate-600);
+  --color-muted-bg: var(--cyan-600);
   --color-input-bg: var(--white);
   --color-input-text: var(--slate-950);
 
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-sm: 6px;
 }
