@@ -1,0 +1,17 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.group {
+  gap: 24px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+}
+
+.actions {
+  align-items: center;
+  padding: 20px;
+  border-radius: var(--radius-md);
+}
