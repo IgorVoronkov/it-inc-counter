@@ -1,3 +1,5 @@
+import { CounterPage } from "@/pages/counter";
+
 export function App() {
-  return <main />;
+  return <CounterPage />;
 }
