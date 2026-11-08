@@ -1,0 +1,13 @@
+.actions {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+}
+
+.actions > button {
+  flex: 1;
+  min-width: 0;
+}

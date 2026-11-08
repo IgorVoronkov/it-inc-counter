@@ -1,5 +1,5 @@
-function App() {
-  return <main />;
-}
+import { CounterPage } from "@/pages/counter";
 
-export default App;
+export function App() {
+  return <CounterPage />;
+}

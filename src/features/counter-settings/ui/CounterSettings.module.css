@@ -1,0 +1,13 @@
+.group {
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+}
+
+.actions {
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: var(--radius-md);
+}
